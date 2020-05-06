@@ -28,9 +28,23 @@ const listening = () => {
     console.log(`The server is now running at localhost:${port}`);
 };
 
-const server = app.listen(port, listening);
-
 // Routes
+// get route to retrieve data from object
 app.get('/', (request, response) => {
     response.send(projectData);
 });
+
+// post route to store the data for new entry in existing object
+app.post('/', (request, response) => {
+    let newEntry = {};
+    newEntry.date = request.body.date;
+    newEntry.temp = request.body.temp;
+    newEntry.content = request.body.content;
+
+    // add new data to existing object
+    projectData.push(newEntry);
+
+    response.send();
+});
+
+app.listen(port, listening);
