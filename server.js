@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+projectData = [];
 
 // Require Express to run server and routes
 const express = require('express');
@@ -31,20 +31,22 @@ const listening = () => {
 // Routes
 // get route to retrieve data from object
 app.get('/', (request, response) => {
-    response.send(projectData);
+    response.status(200).send(projectData);
 });
 
 // post route to store the data for new entry in existing object
 app.post('/', (request, response) => {
-    let newEntry = {};
+    const newEntry = {};
     newEntry.date = request.body.date;
     newEntry.temp = request.body.temp;
     newEntry.content = request.body.content;
 
     // add new data to existing object
+    console.log(newEntry);
+    console.log(`request body = ${request.body}`);
     projectData.push(newEntry);
 
-    response.send();
+    response.status(201).send(projectData);
 });
 
 app.listen(port, listening);
