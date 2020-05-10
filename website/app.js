@@ -7,6 +7,9 @@ const weatherFormat = '&units=imperial';
 let d = new Date();
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
 
+// Add event listener to button on page
+document.getElementById('generate').addEventListener('click', buttonClick);
+
 
 // GET function to retrieve weather API data
 const getWeather = async (baseURL, zipCode, apiKey, weatherFormat) => {
