@@ -12,8 +12,8 @@ document.getElementById('generate').addEventListener('click', buttonClick);
 
 
 // GET function to retrieve weather API data
-const getWeather = async (baseURL, zipCode, apiKey, weatherFormat) => {
-    const response = await fetch(baseURL+zipCode+apiKey+weatherFormat);
+const getWeather = async (url = '') => {
+    const response = await fetch(url);
     try {
         const data = await response.json();
         console.log(data);
