@@ -42,8 +42,6 @@ app.post('/postNew', (request, response) => {
     newEntry.content = request.body.content;
 
     // add new data to existing object
-    console.log(newEntry);
-    console.log(`request body = ${request.body}`);
     projectData.push(newEntry);
 
     response.status(201).send(projectData);
