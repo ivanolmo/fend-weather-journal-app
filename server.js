@@ -30,12 +30,12 @@ const listening = () => {
 
 // Routes
 // get route to retrieve data from object
-app.get('/', (request, response) => {
+app.get('/getJournal', (request, response) => {
     response.status(200).send(projectData);
 });
 
 // post route to store the data for new entry in existing object
-app.post('/', (request, response) => {
+app.post('/postNew', (request, response) => {
     const newEntry = {};
     newEntry.date = request.body.date;
     newEntry.temp = request.body.temp;
