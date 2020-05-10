@@ -10,14 +10,29 @@ let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
 // Add event listener to button on page
 document.getElementById('generate').addEventListener('click', buttonClick);
 
+// POST function to store data
+const postData = async (url = '', data = {}) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    try {
+        return await response.json();
+    } catch (error) {
+        console.log('error', error)
+    }
+};
 
 // GET function to retrieve weather API data
 const getWeather = async (url = '') => {
     const response = await fetch(url);
     try {
-        const data = await response.json();
-        console.log(data);
-        return data;
+        return await response.json();
     } catch (error) {
         console.log('error', error)
     }
