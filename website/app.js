@@ -2,7 +2,6 @@
 const apiKey = '&appid=74c3de506cd0392c67d65851ac5d0cc8';
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const weatherFormat = '&units=imperial';
-// const form = document.querySelector('.form__holder');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -13,11 +12,13 @@ document.getElementById('generate').addEventListener('click', buttonClick);
 
 // callback function when button is clicked, submits data to page
 function buttonClick (event) {
+    event.preventDefault();
     const zipCode = document.getElementById('zip').value;
     getWeather(baseURL+zipCode+apiKey+weatherFormat)
         .then(
             data => {
                 const content = document.getElementById('feelings').value;
+                console.log(content);
                 return postData('/api/post', {
                     temp: data.main.temp,
                     date: newDate,
@@ -41,8 +42,11 @@ function buttonClick (event) {
                             console.log('error', error)
                         }
                     }
-                );
-    // form.reset();
+                )
+        .then(
+            setTimeout(function () {
+            clearForm();
+        }, 300));
 }
 
 // POST function to store data
@@ -71,4 +75,10 @@ const getWeather = async (url = '') => {
     } catch (error) {
         console.log('error', error)
     }
+};
+
+// function to clear input fields
+const clearForm = () => {
+    document.getElementById('zip').value = '';
+    document.getElementById('feelings').value = '';
 };
