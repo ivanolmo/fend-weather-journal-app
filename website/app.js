@@ -2,25 +2,60 @@
 const apiKey = '&appid=74c3de506cd0392c67d65851ac5d0cc8';
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const weatherFormat = '&units=imperial';
+// const form = document.querySelector('.form__holder');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = (d.getMonth() + 1) + '.' + d.getDate() + '.' + d.getFullYear();
 
 // Add event listener to button on page
 document.getElementById('generate').addEventListener('click', buttonClick);
+
+// callback function when button is clicked, submits data to page
+function buttonClick (event) {
+    const zipCode = document.getElementById('zip').value;
+    getWeather(baseURL+zipCode+apiKey+weatherFormat)
+        .then(
+            data => {
+                const content = document.getElementById('feelings').value;
+                return postData('/api/post', {
+                    temp: data.main.temp,
+                    date: newDate,
+                    content: content
+                })
+            })
+                .then(
+                    function () {
+                        return getWeather('/api/get')
+                    }
+                )
+                .then(
+                    async () => {
+                        const request = await fetch('/api/get');
+                        try {
+                            const newData = await request.json();
+                            document.getElementById('date').innerHTML = newData.date;
+                            document.getElementById('temp').innerHTML = newData.temp;
+                            document.getElementById('content').innerHTML = newData.content;
+                        } catch (error) {
+                            console.log('error', error)
+                        }
+                    }
+                );
+    // form.reset();
+}
 
 // POST function to store data
 const postData = async (url = '', data = {}) => {
     const response = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     });
-
     try {
         return await response.json();
     } catch (error) {
