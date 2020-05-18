@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = [];
+projectData = {};
 
 // Require Express to run server and routes
 const express = require('express');
@@ -21,7 +21,6 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
-
 // Setup Server
 const port = 8000;
 const listening = () => {
@@ -30,19 +29,15 @@ const listening = () => {
 
 // Routes
 // get route to retrieve data from object
-app.get('/api/weather', (request, response) => {
+app.get('/api/get', (request, response) => {
     response.status(200).send(projectData);
 });
 
 // post route to store the data for new entry in existing object
-app.post('/api/weather', (request, response) => {
-    const newEntry = {};
-    newEntry.date = request.body.date;
-    newEntry.temp = request.body.temp;
-    newEntry.content = request.body.content;
-
-    // add new data to existing object
-    projectData.push(newEntry);
+app.post('/api/post', (request, response) => {
+    projectData['date'] = request.body.date;
+    projectData['temp'] = request.body.temp;
+    projectData['content'] = request.body.content;
 
     response.status(201).send(projectData);
 });
