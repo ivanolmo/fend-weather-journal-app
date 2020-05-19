@@ -1,50 +1,53 @@
 body {
-    background: #fffff8;
+    background-image: url("./background.jpg");
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 #app {
     display: grid;
-    grid-auto-rows: minmax(150px, auto);
-    /* grid-template-columns:  */
-    height:100vh;
-    background: #f23557;
+    grid-template:
+            "header-top" 3em
+            "zip" auto
+            "feelings" auto
+            "entry" auto
+            "button" auto /
+            30em;
     color: #f0d43a;
-    justify-content: center;
+    background-size: contain;
+    background: #393f4d no-repeat center center;
+    width: min-content;
+    margin: 50vh auto 0;
+    transform: translateY(-50%);
+    padding: 2em;
     grid-gap: 1em;
     font-size: 20px;
+    border-radius: 25px;
     font-family: 'Oswald', sans-serif;
 }
 
-.holder {
-
+.holder.headline {
+    grid-area: header-top;
+    align-items: center;
 }
 
 .entry {
     background: rgba(59, 74, 107, .4);
 }
 
-#entryHolder {
-
+.holder.zip {
+    grid-area: zip;
 }
 
-#date {
-
+.holder.feel {
+    grid-area: feelings;
 }
 
-#temp {
-
+.holder.entry {
+    grid-area: entry;
 }
 
-#content {
-
-}
-
-.headline {
-
-}
 .title {
-
+    text-decoration: underline;
 }
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
@@ -65,6 +68,7 @@ input {
 }
 
 button {
+    grid-area: button;
     width: 400px;
     height: 100px;
     background: #3b4a6b;
@@ -73,10 +77,6 @@ button {
     font-family: 'Oswald', sans-serif;
     border: none;
     box-shadow: 2px 4px 5px #444;
-}
-
-h1 {
-    font-size: 36px;
 }
 
 textarea {
