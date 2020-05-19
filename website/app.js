@@ -18,9 +18,9 @@ function buttonClick (event) {
         .then(
             data => {
                 const content = document.getElementById('feelings').value;
-                console.log(content);
                 return postData('/api/post', {
                     temp: data.main.temp,
+                    location: data.name,
                     date: newDate,
                     content: content
                 })
@@ -36,7 +36,7 @@ function buttonClick (event) {
                         try {
                             const newData = await request.json();
                             document.getElementById('date').innerHTML = newData.date;
-                            document.getElementById('temp').innerHTML = newData.temp;
+                            document.getElementById('temp').innerHTML = newData.temp + '&#8457 in ' + newData.location;
                             document.getElementById('content').innerHTML = newData.content;
                         } catch (error) {
                             console.log('error', error)
@@ -46,7 +46,7 @@ function buttonClick (event) {
         .then(
             setTimeout(function () {
             clearForm();
-        }, 300));
+        }, 200));
 }
 
 // POST function to store data
@@ -78,7 +78,7 @@ const getWeather = async (url = '') => {
 };
 
 // function to clear input fields
-const clearForm = () => {
+function clearForm () {
     document.getElementById('zip').value = '';
     document.getElementById('feelings').value = '';
-};
+}
