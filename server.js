@@ -37,6 +37,7 @@ app.get('/api/get', (request, response) => {
 app.post('/api/post', (request, response) => {
     projectData['date'] = request.body.date;
     projectData['temp'] = request.body.temp;
+    projectData['location'] = request.body.location;
     projectData['content'] = request.body.content;
 
     response.status(201).send(projectData);
